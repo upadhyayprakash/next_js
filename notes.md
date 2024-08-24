@@ -22,4 +22,29 @@ React.js is a library, and has a lot of variables when choosing routing, data fe
     - To handle user interaction and can use hooks (no file handling or calling DB)
     - Need to write 'use client' at top.
 
-# 
+# Creating routes from Scratch
+
+## Routing Convention
+- All routes must be inside `/app` folder.
+- Every route file must be named `page.tsx` or `page.js`
+- Every folder becomes a path segment in browser URL. (can be used for nested path segments)
+
+An example routing structure and its browser URL,
+
+```sh
+    src/app
+    |
+    |__ about
+    |   |__ page.tsx # localhost:3000/about
+    |
+    |__ profile
+    |   |__ page.tsx # localhost:3000/profile
+    |
+    |__ layout.tsx
+    |__ page.tsx # localhost:3000
+```
+
+## Dynamic Routes
+- Using folder names within square brackets `[` and `]` for dynamic route segments in browser URL
+- Eg. `/app/products/[productId]/page.tsx`
+- With above folder structure, you can navigate to `localhost:3000/products/1` or `localhost:3000/products/8` and it'll render content of `[productId]/page.tsx`.
