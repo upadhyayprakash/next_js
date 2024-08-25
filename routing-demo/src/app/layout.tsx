@@ -25,7 +25,7 @@ export default function RootLayout({
         <footer
           style={{
             backgroundColor: "#171616",
-            padding: "1rem",
+            padding: "1rem"
           }}
         >
           <p>Footer</p>

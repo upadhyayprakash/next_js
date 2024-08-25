@@ -12,7 +12,7 @@ React.js is a library, and has a lot of variables when choosing routing, data fe
 - Partial Prerendering Development
 
 ## What is Next.js?
-- A React based opinionated framework for production ready web project.
+A React based opinionated framework for production ready web project.
 
 ## React Server Components(RSC)
 - Two types of React components:
@@ -26,7 +26,7 @@ React.js is a library, and has a lot of variables when choosing routing, data fe
 
 ### Routing Convention
 - All routes must be inside `/app` folder.
-- Every route file must be named `page.tsx` or `page.js`
+- Every route folder should have a file that must be named `page.tsx` or `page.js`
 - Every folder becomes a path segment in browser URL. (can be used for nested path segments)
 
 An example routing structure and its browser URL,
@@ -68,4 +68,38 @@ An example routing structure and its browser URL,
 > #### Warning
 > 
 > - Root level `layout.tsx` file is an auto-generated file and even after you delete it manually, it gets re-generated during code compilation.
-> - You **WILL LOOSE** your prevoius code within layout file if you manually delete it and Next.js re-generates it.
+> - You **WILL LOOSE** your prevoius custom code changes within layout file if you manually delete it and Next.js re-generates it.
+
+- You can also have nested routes with their own `layout.tsx`
+
+> #### NOTE
+>
+> `page.tsx` contents are loaded only when the exact route is matched. But `layout.tsx` contents are loaded from parent folder till current folder.
+
+### Route Group Layout
+- **Route Group** can be used to selectively apply a layout to certain URL segments in same folder level.
+- Eg. Keeping a common layout for `login` and `register` but not for `forgot-password`. You'd need to create a new Route Group folder (with `(` and `)`) and then create a `layout.tsx` within that folder.
+
+## Metadata API
+- Used for better SEO and indexing.
+- 2 ways,
+    1. Export a static metadata object. Like,
+        ```js
+        export const metadata = {
+            title: "Page Title",
+            description: "Description"
+        }
+        ```
+    2. Dynamic `generateMetadata()` function
+        ```js
+        export const generateMetadata = async ({params}: Props): Promise<Metadata> => {
+            // Do some page-specific async data fetch
+            return {
+                title: "" // dynamic title content
+            }
+        }
+        ```
+- Metadata can be used in Layout as well as Page.
+- Layout metadata is passed to all pages within that layout, but Page metadata is only for that specific route page.
+- Page based metadata always override Layout metadata if same keys are present.
+> You can't export both, static `metadata` object and the `generateMetadata()` method from the same route segment.
