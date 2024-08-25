@@ -1,9 +1,9 @@
 # Codevolution
-YouTube: https://www.youtube.com/watch?v=ZjAqacIC_3c&list=PLC3y8-rFHvwjOKd6gdf4QtV1uYNiQnruI&index=2
+YouTube [Playlist](https://www.youtube.com/watch?v=ZjAqacIC_3c&list=PLC3y8-rFHvwjOKd6gdf4QtV1uYNiQnruI&index=2)
 
 React.js is a library, and has a lot of variables when choosing routing, data fetching, bundling etc. Next.js is a React framework with built-in support for such needs.
 
-# Why Next.js?
+## Why Next.js?
 - Automatic code splitting
 - In-built routing (file-based routing)
 - Built-in optimization
@@ -11,10 +11,10 @@ React.js is a library, and has a lot of variables when choosing routing, data fe
 - Image optimization
 - Partial Prerendering Development
 
-# What is Next.js?
+## What is Next.js?
 - A React based opinionated framework for production ready web project.
 
-# React Server Components(RSC)
+## React Server Components(RSC)
 - Two types of React components:
   - Server Components (default in Next.js)
     - Handle files, calling DB (No hooks or user interaction supported)
@@ -22,9 +22,9 @@ React.js is a library, and has a lot of variables when choosing routing, data fe
     - To handle user interaction and can use hooks (no file handling or calling DB)
     - Need to write 'use client' at top.
 
-# Creating routes from Scratch
+## Creating routes from Scratch
 
-## Routing Convention
+### Routing Convention
 - All routes must be inside `/app` folder.
 - Every route file must be named `page.tsx` or `page.js`
 - Every folder becomes a path segment in browser URL. (can be used for nested path segments)
@@ -44,7 +44,28 @@ An example routing structure and its browser URL,
     |__ page.tsx # localhost:3000
 ```
 
-## Dynamic Routes
+### Dynamic Routes
 - Using folder names within square brackets `[` and `]` for dynamic route segments in browser URL
 - Eg. `/app/products/[productId]/page.tsx`
 - With above folder structure, you can navigate to `localhost:3000/products/1` or `localhost:3000/products/8` and it'll render content of `[productId]/page.tsx`.
+
+### File Colocation
+- Every folder that has `page.tsx` or `page.js` becomes the publicly accessible route, but a folder without these file can still be created and used for keeping together relevant components files.
+- The `page.tsx` or `page.js` must export a default function with React component.
+
+### Private Folder
+- You can prefix the folder name with an underscore `_` to make it a private folder, which is not accessible by the Next.js routing system.
+- In case you want to have a path segment with `_`, you can prefix the folder name with `%5F` which is an encoded version of underscore.
+
+### Route Groups
+- You can group the related route pages into a parent folder. Eg. put `register`, `login` in a folder called `auth`. But this will make `auth` part of route segment.
+- If we want to avoid this problem, we can use the Route Group concept, where we rename the folder as `(auth)` that tells Next.js to skip it from routing system.
+
+## Layout
+- Since a `page` is unique to a single route. We can use `Layout` to share the UI components between multiple routes.
+- A `layout.tsx` file has a component that accepts a `children` prop which is rendered between the layout.
+
+> #### Warning
+> 
+> - Root level `layout.tsx` file is an auto-generated file and even after you delete it manually, it gets re-generated during code compilation.
+> - You **WILL LOOSE** your prevoius code within layout file if you manually delete it and Next.js re-generates it.
