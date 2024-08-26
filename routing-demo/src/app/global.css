@@ -46,3 +46,13 @@ body {
   padding: 0;
   box-sizing: border-box;
 }
+
+a {
+  text-decoration: underline;
+}
+
+button {
+  border: 1px solid;
+  border-radius: 0px;
+  padding: .5em 1em;
+}

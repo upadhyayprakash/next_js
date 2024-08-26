@@ -117,3 +117,45 @@ An example routing structure and its browser URL,
         }
     }
     ```
+
+## UI Navigation
+Can be done using `<Link>` or programmatically.
+
+### Using `<Link>` component
+- `href` attribute of `<Link>` component can be used to navigate.
+- `active` link can be identified using `usePathname()` hook and matching `pathname` with current page's Nav link.
+    ```js
+    ...
+    import { usePathname } from "next/navigation";
+    ...
+    ...
+    const pathname = usePathname();
+    ...
+    ...
+    const isActive = pathname.startsWith(link.href);
+    ```
+> #### NOTE
+> - As Next.js components are **Server Rendered** by default, we can't use hooks within them.
+> - We'll need to make them client-rendered using `"use client"` at the top of the component file.
+
+### Programmatically using `useRouter()` hook
+- Ensure your component is client-rendered. Put `"use client"` at top.
+    ```js
+    "use client";
+
+    import { useRouter } from "next/navigation";
+    ...
+    ...
+    const router = useRouter();
+    ...
+    ...
+    // Inside an event handler
+    router.push("/"); // navigates to 'Home' page
+
+    ```
+- You can also replace the history with `replace` attribute on `<Link>` component.
+- Methods on `router` are:
+  - `push("/")` - the usual way to navigate, pushes route to stack
+  - `replace("/")` - replaces the history
+  - `back()` - navigate to previous page
+  - `forward()` - navigate to next page
