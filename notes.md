@@ -103,3 +103,17 @@ An example routing structure and its browser URL,
 - Layout metadata is passed to all pages within that layout, but Page metadata is only for that specific route page.
 - Page based metadata always override Layout metadata if same keys are present.
 > You can't export both, static `metadata` object and the `generateMetadata()` method from the same route segment.
+
+
+### Metadata Object
+- By using `Metadata` interface from `next` package, we can get list of all attributes supported by Next.js regarding metadata.
+- Eg. `title` has more properties,
+    ```js
+    export const metadata = {
+        title: {
+            absolute: "Absolute Title", // ignores the 'title.template' of parent
+            default: "Fallback Title", // child segments fallback to this value, if 'title' not defined
+            template: "%s | Common Title" // applies to child segments, not the current page
+        }
+    }
+    ```
