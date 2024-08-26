@@ -159,3 +159,55 @@ Can be done using `<Link>` or programmatically.
   - `replace("/")` - replaces the history
   - `back()` - navigate to previous page
   - `forward()` - navigate to next page
+
+## Templates
+- `layout` simply mount the `children` content by keeping the rest of the component un-touched.
+- If you want to reset the component state and effects (eg. entry/exit animation or useEffect() effects), you can use the `template.js` or `template.tsx` to replace layout.
+- Templates re-mount the DOM which resets the state and effects within a component.
+- You can use both `layout` and `template` in a component. Layout renders first and has children as template.
+- For shared UIs, always prefer **Layout**
+
+## Loading UI
+- Displays a UI while the component is loading.
+- Create a `loading.tsx` inside the folder where loading is required.
+- When used with **Shared Layouts**, enabled interactively while the component is loading. Eg. Header navigation or sidebar is still clickable while page is loading.
+
+## Error Handling
+- Use `error.tsx` file inside a route folder to show a fallback UI whenever an unhandled error is thrown from the route component.
+- This functional component, also receives an `error` object as a prop to show more info like `error.message`.
+    ```js
+    "use client"
+    export default function ErrorBoundary({error}: {error: Error}) {
+        return <div>{error.message}</div>
+    }
+    ```
+- `error.tsx` file wraps the route segment and its children in a React **Error Boundary** ensuring the rest of the application remains functional.
+> #### NOTE
+> You can add a **"Realod"** button in the `error.tsx` to attempt a retry for that route segment instead of full page reload.
+
+## Special Files
+Since Next.js is an opinionated React.js framework, it has many special files that perform complex task and gives us a simple developer experience.
+
+- `page.tsx`
+- `layout.tsx`
+- `template.tsx`
+- `not-found.tsx`
+- `loading.tsx`
+- `error.tsx`
+
+The order in which these files get rendered is,
+
+```html
+<Layout>
+    <Template>
+        <ErrorBoundary fallback={<Error />}>
+            <Suspense fallback={<Loading />}>
+                <ErrorBoundary fallback={<NotFound />}>
+                    <Page />
+                </ErrorBoundary>
+            </Suspense>
+        </ErrorBoundary>
+    </Template>
+</Layout>
+```
+

@@ -2,7 +2,7 @@
 import { usePathname } from "next/navigation";
 import Link from "next/link";
 
-export const navLinks = [
+const navLinks = [
     { name: "Register", href: "/register" },
     { name: "Login", href: "/login" },
     { name: "Forgot password?", href: "/forgot-password" },
