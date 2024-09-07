@@ -211,3 +211,36 @@ The order in which these files get rendered is,
 </Layout>
 ```
 
+## Recover from re-triable error
+- We can use the `reset()` function provided by ErrorBoundary to re-render the component throwing error.
+
+> #### Important
+> To ensure that `page.tsx` can be recovered, we need to convert that to a client-rendered component by writing "use client" at the top.
+
+- Error events bubble up to the closest parent's **ErrorBoundary**, hence, in a nested URL segment scenario, placing the `error.tsx` file at parent level will ensure it's handling error from all its children components, and replace the entire parent with `fallback` UI provided in `error.tsx`.
+
+> #### Important
+> - In case of Layout, **ErrorBoundary** works differently, as `<Layout/>` is the parent most rendered component for any URL segment, hence <ErrorBoundary/> can't handle layout's error.
+> - We can place the `error.tsx` at the parent level of the `layout.tsx` to catch the errors from layout file.
+
+
+
+## Next.js Project Structure
+```yaml
+/my-nextjs-app
+  /components      # Reusable UI components
+  /pages           # Next.js pages (includes dynamic routes)
+  /public          # Static assets (images, fonts)
+  /styles          # Global styles and CSS modules
+  /utils           # Utility functions and helpers
+  /hooks           # Custom React hooks
+  /context         # React context providers (for state management)
+  /api             # API routes (for serverless functions)
+  /lib             # Libraries or services (e.g., API clients)
+  /types           # TypeScript types (if using TypeScript)
+  /middleware      # Middleware functions (e.g., authentication)
+  /tests           # Unit and integration tests
+  next.config.js   # Next.js configuration
+  tsconfig.json    # TypeScript configuration (if using TypeScript)
+  package.json     # Project dependencies and scripts
+```
